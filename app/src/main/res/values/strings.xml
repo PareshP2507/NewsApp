@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="published_at">Published: %1$s</string>
+</resources>
