@@ -46,7 +46,13 @@ public class HomeViewModel extends ViewModel {
                 _showLoader.postValue(true);
                 NewsResult result = getNewsUseCase.execute(QUERY, API_KEY);
                 if (result.getStatus().equals(STATUS_OK)) {
-                    _articles.postValue(result.getArticles());
+                    List<Article> articleList = result.getArticles();
+                    // If the records are more than 100, make sure we post only 100
+                    if (articleList.size() > 100) {
+                        _articles.postValue(articleList.subList(0, 100));
+                    } else {
+                        _articles.postValue(result.getArticles());
+                    }
                 }
                 _showLoader.postValue(false);
             } catch (Exception e) {
